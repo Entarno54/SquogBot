@@ -30,6 +30,7 @@ async def ping(ctx: nextcord.Message):
 
 client.add_cog("Main")
 
+
 #  ______               _
 # |  ____|             | |
 # | |____   _____ _ __ | |_ ___
