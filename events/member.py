@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 
-class Main(commands.Cog):
+class Members(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
@@ -14,3 +14,6 @@ class Main(commands.Cog):
     @commands.Cog.listener
     async def on_member_remove(member: nextcord.Member):
         print(f"Member {member.display_name} left")
+
+def setup(bot):
+    bot.add_cog(Members(bot))

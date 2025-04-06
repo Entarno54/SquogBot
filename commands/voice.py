@@ -20,7 +20,7 @@ SquogCurrentConnection: nextcord.VoiceClient = None
 
 SquogDownload = yt_dlp.YoutubeDL(SquogVideo)
 
-class Main(commands.Cog):
+class Voice(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
@@ -77,4 +77,4 @@ class Main(commands.Cog):
         SquogCurrentConnection.stop()
 
 def setup(bot):
-    bot.add_cog(Main(bot))
+    bot.add_cog(Voice(bot))

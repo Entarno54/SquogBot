@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 
-class Main(commands.Cog):
+class Logger(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
@@ -31,3 +31,6 @@ class Main(commands.Cog):
         print("Bot logged")
         SquogMod = self.client.get_channel(1356577069068324986)
         print(SquogMod)
+
+def setup(bot):
+    bot.add_cog(Logger(bot))
