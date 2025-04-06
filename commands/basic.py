@@ -1,7 +1,7 @@
 import nextcord
 from nextcord.ext import commands
 
-class Main():
+class Main(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
