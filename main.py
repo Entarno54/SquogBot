@@ -45,7 +45,7 @@ SquogDownload = yt_dlp.YoutubeDL(SquogVideo)
 @client.command()
 async def help(ctx: nextcord.Message):
     embed = nextcord.Embed(title="Help")
-    print(client.get_application_commands())
+    print(client.commands)
     for command in client.get_application_commands():
         print(command)
 
