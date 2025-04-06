@@ -1,5 +1,6 @@
 import nextcord
 from nextcord.ext import commands
+import os
 
 SquogServer = 1356433463854497944
 SquogToken = "MTM1NjU2MTY2MjQyOTM2ODQxMQ.G8aypc.CZBX-x6e4Oad3U5zO0nUgc02d9FDIDSNFybysI"
@@ -28,7 +29,10 @@ async def help(ctx: nextcord.Message):
 async def ping(ctx: nextcord.Message):
     await ctx.reply("Pong!")
 
-client.add_cog("Main")
+for filename in os.listdir('./commands'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
 
 
 #  ______               _
