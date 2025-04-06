@@ -31,8 +31,7 @@ async def ping(ctx: nextcord.Message):
 
 for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
-
+        client.load_extension(f'commands.{filename[:-3]}')
 
 
 #  ______               _

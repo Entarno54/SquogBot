@@ -21,11 +21,11 @@ SquogCurrentConnection: nextcord.VoiceClient = None
 SquogDownload = yt_dlp.YoutubeDL(SquogVideo)
 
 class Main(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot):
         self.client = bot
 
     @commands.command(description="Join the voice channel.")
-    async def join(ctx: nextcord.Message):
+    async def join(self, ctx: nextcord.Message):
         print("Joining")
         if not ctx.guild.voice_client:
             if ctx.author.voice:
@@ -37,7 +37,7 @@ class Main(commands.Cog):
             await ctx.reply("Can't join as i'm already in a voice channel.")
 
     @commands.command(description="Leaves the voice channel.")
-    async def leave(ctx: nextcord.Message):
+    async def leave(self, ctx: nextcord.Message):
         print("Leaving")
         if ctx.guild.voice_client:
             await ctx.guild.voice_client.disconnect(force=True)
@@ -46,7 +46,7 @@ class Main(commands.Cog):
             await ctx.reply("Can't leave as i'm not in any voice channel.")
 
     @commands.command(description="Plays music in the voice channel.", usage={"link"})
-    async def play(ctx: nextcord.Message, link):
+    async def play(self, ctx: nextcord.Message, link):
         global SquogEvilFilename
         global SquogFinalName
         SquogEvilFilename = None
@@ -69,9 +69,12 @@ class Main(commands.Cog):
         SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
     @commands.command(description="Stops the music in voice channel")
-    async def stop(ctx: nextcord.Message):
+    async def stop(self, ctx: nextcord.Message):
         if not ctx.guild.voice_client:
             return await ctx.reply("I'm not in a voice channel.")
         if not ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm not playing music.")
         SquogCurrentConnection.stop()
+
+def setup(bot):
+    bot.add_cog(Main(bot))
