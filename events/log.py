@@ -13,7 +13,7 @@ class Logger(commands.Cog):
             description=msg.content,
             url="https://entarapi.xyz"
         ))
-        embedlist[0].set_author(name=msg.author.name)
+        embedlist[0].set_author(name=msg.author.name, icon_url=ctx.author.avatar.url)
         for image in msg.attachments:
             newembed = nextcord.Embed(url="https://entarapi.xyz")
             newembed.set_image(image.url)  # Unfortunately i cant add multiple images.
@@ -26,6 +26,7 @@ class Logger(commands.Cog):
             title="Command used",
             description=ctx.message.content
         )
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         field = embed.add_field(name="Channel", value=ctx.channel.name)
         await SquogMod.send(embed=embed)
 
