@@ -13,7 +13,7 @@ class Logger(commands.Cog):
             description=msg.content,
             url="https://entarapi.xyz"
         ))
-        embedlist[0].set_author(name=msg.author.name, icon_url=ctx.author.avatar.url)
+        embedlist[0].set_author(name=msg.author.name, icon_url=msg.author.avatar.url)
         for image in msg.attachments:
             newembed = nextcord.Embed(url="https://entarapi.xyz")
             newembed.set_image(image.url)  # Unfortunately i cant add multiple images.
