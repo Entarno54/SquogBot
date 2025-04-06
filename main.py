@@ -47,7 +47,7 @@ async def help(ctx: nextcord.Message):
     embed = nextcord.Embed(title="Help")
     print(client.commands)
     for command in client.commands:
-        embed.add_field(name=command.name, value=f"Arguments: {command.usage or "no arguments provided"} \nDescription: {command.description or "No command description"}")
+        embed.add_field(name=command.name, value=f"Arguments: {command.usage} \nDescription: {command.description}")
     await ctx.reply(embed=embed)
 
 @client.command(description="Check how fast the bot will reply to you.", help="evil")
