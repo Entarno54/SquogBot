@@ -18,4 +18,4 @@ class Main():
 
 
 def setup(bot):
-    Main(bot)
+    bot.add_cog(Main(bot))
