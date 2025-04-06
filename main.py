@@ -57,8 +57,7 @@ async def ping(ctx: nextcord.Message):
 @client.command(description="Join the voice channel.")
 async def join(ctx: nextcord.Message):
     print("Joining")
-    print(client.voice_clients)
-    if client.voice_clients.__len__() == 0:
+    if not ctx.guild.voice_client.channel:
         if ctx.author.voice:
             global SquogCurrentConnection
             SquogCurrentConnection = await ctx.author.voice.channel.connect()
@@ -71,8 +70,8 @@ async def join(ctx: nextcord.Message):
 @client.command(description="Leaves the voice channel.")
 async def leave(ctx: nextcord.Message):
     print("Leaving")
-    if client.voice_clients.__len__() != 0:
-        await client.voice_clients[0].disconnect(force=True)
+    if ctx.guild.voice_client.is_connected():
+        await ctx.guild.voice_client.disconnect(force=True)
         await ctx.reply("Left.")
     else:
         await ctx.reply("Can't leave as i'm not in any voice channel.")
@@ -82,9 +81,9 @@ async def play(ctx: nextcord.Message, link):
     global SquogEvilFilename
     global SquogFinalName
     SquogEvilFilename = None
-    if client.voice_clients.__len__() == 0:
+    if not ctx.guild.voice_client.is_connected():
         return await ctx.reply("I'm not in a voice channel.")
-    if client.voice_clients[0].is_playing():
+    if ctx.guild.voice_client.is_playing():
         return await ctx.reply("I'm already playing music.")
     print(ctx.guild.voice_client.is_connected())
     print(SquogCurrentConnection)
@@ -103,9 +102,9 @@ async def play(ctx: nextcord.Message, link):
 
 @client.command(description="Stops the music in voice channel")
 async def stop(ctx: nextcord.Message):
-    if client.voice_clients.__len__() == 0:
+    if not ctx.guild.voice_client.is_connected():
         return await ctx.reply("I'm not in a voice channel.")
-    if not SquogCurrentConnection.is_playing():
+    if not ctx.guild.voice_client.is_playing():
         return await ctx.reply("I'm not playing music.")
     SquogCurrentConnection.stop()
 
@@ -119,7 +118,8 @@ async def stop(ctx: nextcord.Message):
 @client.event
 async def on_member_join(member: nextcord.Member):
     print(f"Member {member.display_name} joined")
-    await member.add_roles(nextcord.utils.get(member.guild.roles, name="Squog"))
+    if member.guild.id == 1356433463854497944:  # Only for the squog server
+        await member.add_roles(nextcord.utils.get(member.guild.roles, name="Squog"))
 
 @client.event
 async def on_member_remove(member: nextcord.Member):
