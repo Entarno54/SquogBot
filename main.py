@@ -5,14 +5,6 @@ import yt_dlp
 import subprocess
 from nextcord.ext import commands
 import logging
-import multiprocessing
-
-logger = logging.getLogger('disnake')
-logger.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='disnake.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
-
 
 SquogServer = 1356433463854497944
 SquogToken = "MTM1NjU2MTY2MjQyOTM2ODQxMQ.G8aypc.CZBX-x6e4Oad3U5zO0nUgc02d9FDIDSNFybysI"
