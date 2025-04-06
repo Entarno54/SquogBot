@@ -2,6 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import yt_dlp
 import os
+import multiprocessing
 
 SquogFinalName: str = None
 
@@ -74,7 +75,7 @@ class Voice(commands.Cog):
             return await ctx.reply("I'm not in a voice channel.")
         if not ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm not playing music.")
-        SquogCurrentConnection.stop()
+        ctx.guild.voice_client.stop()
 
 def setup(bot):
     bot.add_cog(Voice(bot))
