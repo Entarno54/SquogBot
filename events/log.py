@@ -8,12 +8,12 @@ class Logger(commands.Cog):
     @commands.Cog.listener()
     async def on_message_delete(self, msg: nextcord.Message):
         embedlist = []
-        embedlist[0] = nextcord.Embed(
+        embedlist.append(nextcord.Embed(
             title="Message delete",
             description=msg.content,
             url="https://entarapi.xyz"
-        )
-        embedlist.set_author(name=msg.author.name)
+        ))
+        embedlist[0].set_author(name=msg.author.name)
         for image in msg.attachments:
             newembed = nextcord.Embed(url="https://entarapi.xyz")
             newembed.set_image(image.url)  # Unfortunately i cant add multiple images.
