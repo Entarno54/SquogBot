@@ -69,7 +69,7 @@ class Voice(commands.Cog):
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
             SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
         print(ctx.guild.voice_client.is_connected())
-        multiprocessing.Process(Music).start()
+        multiprocessing.Process(target=Music).start()
 
 
     @commands.command(description="Stops the music in voice channel")
