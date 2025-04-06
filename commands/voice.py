@@ -12,7 +12,7 @@ SquogVideo = {
         'key': 'FFmpegExtractAudio',
         'preferredcodec': 'mp3',
     }],
-    "outtmpl": './%(uploader)s_%(title)s.%(ext)s',
+    "outtmpl": './music/%(uploader)s_%(title)s.%(ext)s',
     "quality": "low"
 }
 
@@ -65,7 +65,7 @@ class Main(commands.Cog):
         print(SquogExt)
         SquogLength = SquogFinalName.find(SquogExt[1]) + 1
         print(SquogLength)
-        SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
+        SquogEvilFilename = f"music/{SquogFinalName[:SquogLength]}mp3"
         SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
     @commands.command(description="Stops the music in voice channel")

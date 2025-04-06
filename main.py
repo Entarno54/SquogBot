@@ -10,25 +10,6 @@ client.remove_command("help")
 
 SquogMod = None
 
-#    _____                                          _
-#  / ____|                                        | |
-# | |     ___  _ __ ___  _ __ ___   __ _ _ __   __| |___
-# | |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
-# | |___| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
-#  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
-
-@client.command()
-async def help(ctx: nextcord.Message):
-    embed = nextcord.Embed(title="Help")
-    print(client.commands)
-    for command in client.commands:
-        embed.add_field(name=command.name, value=f"Arguments: {command.usage} \nDescription: {command.description}")
-    await ctx.reply(embed=embed)
-
-@client.command(description="Check how fast the bot will reply to you.", help="evil")
-async def ping(ctx: nextcord.Message):
-    await ctx.reply("Pong!")
-
 for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
         client.load_extension(f'commands.{filename[:-3]}')
