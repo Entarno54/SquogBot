@@ -57,7 +57,7 @@ async def ping(ctx: nextcord.Message):
 @client.command(description="Join the voice channel.")
 async def join(ctx: nextcord.Message):
     print("Joining")
-    if not ctx.guild.voice_client.channel:
+    if not ctx.guild.voice_client:
         if ctx.author.voice:
             global SquogCurrentConnection
             SquogCurrentConnection = await ctx.author.voice.channel.connect()
@@ -70,7 +70,7 @@ async def join(ctx: nextcord.Message):
 @client.command(description="Leaves the voice channel.")
 async def leave(ctx: nextcord.Message):
     print("Leaving")
-    if ctx.guild.voice_client.is_connected():
+    if ctx.guild.voice_client:
         await ctx.guild.voice_client.disconnect(force=True)
         await ctx.reply("Left.")
     else:
@@ -81,7 +81,7 @@ async def play(ctx: nextcord.Message, link):
     global SquogEvilFilename
     global SquogFinalName
     SquogEvilFilename = None
-    if not ctx.guild.voice_client.is_connected():
+    if not ctx.guild.voice_client:
         return await ctx.reply("I'm not in a voice channel.")
     if ctx.guild.voice_client.is_playing():
         return await ctx.reply("I'm already playing music.")
@@ -102,7 +102,7 @@ async def play(ctx: nextcord.Message, link):
 
 @client.command(description="Stops the music in voice channel")
 async def stop(ctx: nextcord.Message):
-    if not ctx.guild.voice_client.is_connected():
+    if not ctx.guild.voice_client:
         return await ctx.reply("I'm not in a voice channel.")
     if not ctx.guild.voice_client.is_playing():
         return await ctx.reply("I'm not playing music.")
