@@ -13,7 +13,7 @@ class Main():
         await ctx.reply(embed=embed)
 
     @commands.command(description="Check how fast the bot will reply to you.")
-    async def ping(ctx: nextcord.Message):
+    async def ping(self, ctx: nextcord.Message):
         await ctx.reply("Pong!")
 
 
