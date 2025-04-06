@@ -55,19 +55,22 @@ class Voice(commands.Cog):
             return await ctx.reply("I'm not in a voice channel.")
         if ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm already playing music.")
+        def Music():
+            SquogVoiceClient = ctx.guild.voice_client
+            print(link)
+            SquogDownload.download(link)
+            SquogInfo = SquogDownload.extract_info(link, download=False)
+            SquogFinalName = SquogDownload.prepare_filename(SquogInfo)
+            SquogLength = SquogFinalName.__len__() - 4
+            SquogExt = os.path.splitext(SquogFinalName)
+            print(SquogExt)
+            SquogLength = SquogFinalName.find(SquogExt[1]) + 1
+            print(SquogLength)
+            SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
+            SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
         print(ctx.guild.voice_client.is_connected())
-        SquogVoiceClient = ctx.guild.voice_client
-        print(link)
-        SquogDownload.download(link)
-        SquogInfo = SquogDownload.extract_info(link, download=False)
-        SquogFinalName = SquogDownload.prepare_filename(SquogInfo)
-        SquogLength = SquogFinalName.__len__() - 4
-        SquogExt = os.path.splitext(SquogFinalName)
-        print(SquogExt)
-        SquogLength = SquogFinalName.find(SquogExt[1]) + 1
-        print(SquogLength)
-        SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
-        SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+        multiprocessing.Process(Music).start()
+
 
     @commands.command(description="Stops the music in voice channel")
     async def stop(self, ctx: nextcord.Message):
