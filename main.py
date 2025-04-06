@@ -9,9 +9,8 @@ import logging
 SquogServer = 1356433463854497944
 SquogToken = "MTM1NjU2MTY2MjQyOTM2ODQxMQ.G8aypc.CZBX-x6e4Oad3U5zO0nUgc02d9FDIDSNFybysI"
 
-SquogHelp = commands.HelpCommand() #command_attrs={"name", "help", "usage", "description"}
-
-client = commands.Bot(command_prefix="!", intents=nextcord.Intents.all(), help_command = SquogHelp)
+client = commands.Bot(command_prefix="!", intents=nextcord.Intents.all())
+client.remove_command("help")
 
 SquogMod = None
 
@@ -42,6 +41,12 @@ SquogDownload = yt_dlp.YoutubeDL(SquogVideo)
 # | |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
 # | |___| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
 #  \_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
+
+@client.command()
+async def help(ctx: nextcord.Message):
+    embed = nextcord.Embed(title="Help")
+    for command in client.get_application_commands():
+        print(command)
 
 @client.command(description="Check how fast the bot will reply to you.", help="evil")
 async def ping(ctx: nextcord.Message):
