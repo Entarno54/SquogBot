@@ -65,7 +65,7 @@ class Voice(commands.Cog):
         print(SquogExt)
         SquogLength = SquogFinalName.find(SquogExt[1]) + 1
         print(SquogLength)
-        SquogEvilFilename = f"music/{SquogFinalName[:SquogLength]}mp3"
+        SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
         SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
     @commands.command(description="Stops the music in voice channel")
