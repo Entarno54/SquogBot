@@ -15,6 +15,10 @@ for filename in os.listdir('./commands'):
         print(filename)
         client.load_extension(f'commands.{filename[:-3]}')
 
+for filename in os.listdir("./events"):
+    if filename.endswith('.py'):
+        client.load_extension(f'events.{filename[:-3]}')
+
 #   ______                     _   _
 #  |  ____|                   | | (_)
 #  | |__  __  _____  ___ _   _| |_ _ _ __   __ _
