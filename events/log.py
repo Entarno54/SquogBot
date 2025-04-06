@@ -5,7 +5,7 @@ class Logger(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_message_delete(self, msg: nextcord.Message):
         embed = nextcord.Embed(
             title="Message delete",
@@ -16,7 +16,7 @@ class Logger(commands.Cog):
             embed.set_image(image.url)  # Unfortunately i cant add multiple images.
         await SquogMod.send(embed=embed)
 
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):
         embed = nextcord.Embed(
             title="Command used",
@@ -25,7 +25,7 @@ class Logger(commands.Cog):
         field = embed.add_field(name="Channel", value=ctx.channel.name)
         await SquogMod.send(embed=embed)
 
-    @commands.Cog.listener
+    @commands.Cog.listener()
     async def on_ready(self):
         global SquogMod
         print("Bot logged")
