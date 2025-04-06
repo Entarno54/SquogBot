@@ -7,14 +7,18 @@ class Logger(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message_delete(self, msg: nextcord.Message):
-        embed = nextcord.Embed(
+        embedlist = []
+        embedlist[0] = nextcord.Embed(
             title="Message delete",
-            description=msg.content
+            description=msg.content,
+            url="https://entarapi.xyz"
         )
-        embed.set_author(name=msg.author.name)
+        embedlist.set_author(name=msg.author.name)
         for image in msg.attachments:
-            embed.set_image(image.url)  # Unfortunately i cant add multiple images.
-        await SquogMod.send(embed=embed)
+            newembed = nextcord.Embed(url="https://entarapi.xyz")
+            newembed.set_image(image.url)  # Unfortunately i cant add multiple images.
+            embedlist.append(newembed)
+        await SquogMod.send(embeds=embedlist)
 
     @commands.Cog.listener()
     async def on_command(self, ctx: commands.Context):

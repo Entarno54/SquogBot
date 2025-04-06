@@ -12,7 +12,6 @@ SquogMod = None
 
 for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
-        print(filename)
         client.load_extension(f'commands.{filename[:-3]}')
 
 for filename in os.listdir("./events"):
