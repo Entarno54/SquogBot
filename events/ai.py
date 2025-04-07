@@ -14,6 +14,7 @@ SquogDataFile.close()
 SquogUserPreset = {"id":  999, "messages":  []}
 
 async def getResponse(SquogMessageList):
+    print(SquogMessageList)
     SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, json={"model": "gpt-4o", "messages":SquogMessageList})
     print(SquogRequest.content)
 
