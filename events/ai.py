@@ -10,3 +10,6 @@ class AI(commands.Cog):
     async def on_message_create(self, message: nextcord.Message):
         print(message.content)
         self.client.process_application_commands(message)
+
+def setup(bot):
+    bot.add_cog(AI(bot))
