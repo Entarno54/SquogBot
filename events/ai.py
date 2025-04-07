@@ -1,6 +1,4 @@
 import os
-from pyexpat.errors import messages
-
 import nextcord
 from nextcord.ext import commands
 import requests
@@ -16,7 +14,7 @@ SquogDataFile.close()
 SquogUserPreset = {"id":  999, "messages":  []}
 
 async def getResponse(SquogMessageList):
-    SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, data={"model": "gpt-4o", "messages":messages})
+    SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, body={"model": "gpt-4o", "messages":messages})
     print(SquogRequest.content)
 
     return SquogRequest.json()
