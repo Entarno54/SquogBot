@@ -10,6 +10,10 @@ class Fun(commands.Cog):
     async def boop(self, ctx: nextcord.Message, user: nextcord.User):
         await ctx.reply(f"{user.mention} shall get booped!", files=[nextcord.File("./images/boop.webp")])
 
+    @commands.command(description="Turn someone into a squog", usage={"@user"})
+    async def squogify(self, ctx: nextcord.Message, user: nextcord.User):
+        await ctx.reply(f"{user.mention} shall get squogged!", files=[nextcord.File("./images/squogify.gif")])
+
     # Add something here later cuz im lazy raaahhh
 
 def setup(bot):
