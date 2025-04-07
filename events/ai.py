@@ -5,7 +5,7 @@ import requests
 import openai
 import json
 
-SquogAILink = "https://api.webraft.in/v2/chat/completions"
+SquogAILink = "https://api.webraft.in/"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
 
 SquogAI = openai.OpenAI(api_key=SquogAIToken, base_url=SquogAILink)
