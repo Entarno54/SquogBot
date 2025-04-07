@@ -39,7 +39,7 @@ class AI(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: nextcord.Message):
         print(message.content)
-        await self.client.process_application_commands(message)
+        await self.client.process_commands(message)
 
         SquogMention = False
 
