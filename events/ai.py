@@ -27,7 +27,7 @@ async def find(list: list, param: str, value: any):
             found = g
     return found
 
-async def flush(data):
+async def flush():
     SquogDataFile = open("./userdata/userdata.json", "w")
     SquogDataFile.write(json.dumps(SquogData))
     SquogDataFile.flush()
@@ -39,8 +39,6 @@ class AI(commands.Cog):
 
     @commands.Cog.listener()
     async def on_message(self, message: nextcord.Message):
-        print(message.content)
-        await self.client.process_commands(message)
 
         if not Enabled:
             return
