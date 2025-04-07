@@ -2,7 +2,7 @@ import nextcord
 from nextcord.ext import commands
 import yt_dlp
 import os
-import multiprocessing
+import threading
 
 SquogFinalName: str = None
 
@@ -74,7 +74,7 @@ class Voice(commands.Cog):
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
             SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
-        multiprocessing.Process(target=Test).start()
+        threading.Thread(target=Test).start()
 
     @commands.command(description="Stops the music in voice channel")
     async def stop(self, ctx: nextcord.Message):
