@@ -16,7 +16,7 @@ SquogDataFile.close()
 SquogUserPreset = {"id":  999, "messages":  []}
 
 async def getResponse(SquogMessageList):
-    return requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, body={"model": "gpt-4o", messages:messages}).json()
+    return requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, json={"model": "gpt-4o", "messages":messages}).json()
 
 async def find(list: list, param: str, value: any):
     found = None
