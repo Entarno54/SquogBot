@@ -3,7 +3,7 @@ from nextcord.ext import commands
 import openai
 import json
 
-Enabled = false
+Enabled = False
 
 SquogAILink = "https://api.webraft.in/v1"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
