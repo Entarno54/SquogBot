@@ -9,7 +9,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def boop(self, ctx: nextcord.Message, user: nextcord.User):
         print(os.listdir("../"))
-        ctx.reply(f"{user.mention} shall get booped!", files=[nextcord.File("../images/boop.webp")])
+        ctx.reply(f"{user.mention} shall get booped!", files=[nextcord.File("./images/boop.webp")])
     # Add something here later cuz im lazy raaahhh
 
 def setup(bot):
