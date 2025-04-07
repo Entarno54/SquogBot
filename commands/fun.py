@@ -1,4 +1,6 @@
 import os
+import random
+
 import nextcord
 from nextcord.ext import commands
 
@@ -13,6 +15,10 @@ class Fun(commands.Cog):
     @commands.command(description="Turn someone into a squog", usage={"@user"})
     async def squogify(self, ctx: nextcord.Message, user: nextcord.User):
         await ctx.reply(f"{user.mention} shall get squogged!", files=[nextcord.File("./images/squogify.gif")])
+
+    @commands.command(description="Kidnap someone", usage={"@user"})
+    async def kidnap(self, ctx: nextcord.Message, user: nextcord.User):
+        await ctx.reply(f"{user.mention} shall get kidnapped!", files=[nextcord.File(f"./images/Kidnap{random.randint(1, 2)}.jpg")])
 
     # Add something here later cuz im lazy raaahhh
 
