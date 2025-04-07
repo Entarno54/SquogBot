@@ -9,8 +9,9 @@ import json
 SquogAILink = "https://api.webraft.in/v2/chat/completions"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
 
-SquogDataFile = open("./userinfo/userinfo.json", "rw")
+SquogDataFile = open("./userinfo/userinfo.json", "r")
 SquogData = json.loads(SquogDataFile.read())
+SquogDataFile.close()
 
 SquogUserPreset = {"id":  999, "messages":  []}
 
@@ -26,8 +27,10 @@ async def find(list: list, param: str, value: any):
     return found
 
 async def flush(data):
+    SquogDataFile = open("./userdata/userdata.json", "w")
     SquogDataFile.write(json.dumps(SquogData))
     SquogDataFile.flush()
+    SquogDataFile.close()
 
 class AI(commands.Cog):
     def __init__(self, bot: commands.Bot):
