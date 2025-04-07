@@ -6,7 +6,7 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.client = bot
 
-    @commands.command()
+    @commands.command(description="Boop the user of your desire", usage={"@user"})
     async def boop(self, ctx: nextcord.Message, user: nextcord.User):
         await ctx.reply(f"{user.mention} shall get booped!", files=[nextcord.File("./images/boop.webp")])
 
