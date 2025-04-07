@@ -2,10 +2,13 @@ import os
 import nextcord
 from nextcord.ext import commands
 import requests
+import openai
 import json
 
 SquogAILink = "https://api.webraft.in/v2/chat/completions"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
+
+SquogAI = openai.OpenAI(api_key=SquogAIToken, base_url=SquogAILink)
 
 SquogDataFile = open("./userinfo/userinfo.json", "r")
 SquogData = json.loads(SquogDataFile.read())
@@ -14,11 +17,7 @@ SquogDataFile.close()
 SquogUserPreset = {"id":  999, "messages":  []}
 
 async def getResponse(SquogMessageList):
-    print(SquogMessageList)
-    SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, json={"model": "gpt-4o", "messages":SquogMessageList})
-    print(SquogRequest.content)
-
-    return SquogRequest.json()
+    return SquogAI.chat.completions.create(messages=SquogMessageList, model="gpt-4o", temperature=0.6)
 
 async def find(list: list, param: str, value: any):
     found = None
