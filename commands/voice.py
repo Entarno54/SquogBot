@@ -48,33 +48,39 @@ class Voice(commands.Cog):
 
     @commands.command(description="Plays music in the voice channel.", usage={"link"})
     async def play(self, ctx: nextcord.Message, link):
-        global SquogEvilFilename
-        global SquogFinalName
-        SquogEvilFilename = None
         if not ctx.guild.voice_client:
             return await ctx.reply("I'm not in a voice channel.")
         if ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm already playing music.")
         # Extracting info for the filename
         SquogInfo = SquogDownload.extract_info(link, download=False)
+
         Embed = nextcord.Embed(title="Loading music", description=SquogDownload.prepare_filename(SquogInfo))
+
         # Notifying the user that music is getting started so they know its there
         await ctx.reply(embed=Embed)
 
         SquogVoiceClient = ctx.guild.voice_client
 
-        def Test():
+        # Function i will pass to the thread
+        def Process():
+            #Downloading the music
             SquogDownload.download(link)
+            #Getting the filename again
             SquogFinalName = SquogDownload.prepare_filename(SquogInfo)
-            SquogLength = SquogFinalName.__len__() - 4
+            #Getting the file extension (webp, mp4)
             SquogExt = os.path.splitext(SquogFinalName)
-            print(SquogExt)
+            #Finding the file length without the extension
             SquogLength = SquogFinalName.find(SquogExt[1]) + 1
-            print(SquogLength)
+            #Convering the extension to mp3 because
+            #yt-dlp returns the original filename instead of the converted one
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
+
+            #Starting the music
             SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
-        threading.Thread(target=Test).start()
+        # I've to start this in a different thread because of how long some videos take to load...
+        threading.Thread(target=Process).start()
 
     @commands.command(description="Stops the music in voice channel")
     async def stop(self, ctx: nextcord.Message):
