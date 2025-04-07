@@ -16,7 +16,7 @@ SquogDataFile.close()
 SquogUserPreset = {"id":  999, "messages":  []}
 
 async def getResponse(SquogMessageList):
-    SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, json={"model": "gpt-4o", "messages":messages})
+    SquogRequest = requests.post(SquogAILink, headers={"Authorization": f"Bearer {SquogAIToken}"}, data={"model": "gpt-4o", "messages":messages})
     print(SquogRequest.content)
 
     return SquogRequest.json()
@@ -41,7 +41,7 @@ class AI(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message: nextcord.Message):
         print(message.content)
-        self.client.process_application_commands(message)
+        await self.client.process_application_commands(message)
 
         SquogMention = False
 
