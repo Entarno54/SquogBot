@@ -1,9 +1,9 @@
-import os
 import nextcord
 from nextcord.ext import commands
-import requests
 import openai
 import json
+
+Enabled = false
 
 SquogAILink = "https://api.webraft.in/v1"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
@@ -41,6 +41,9 @@ class AI(commands.Cog):
     async def on_message(self, message: nextcord.Message):
         print(message.content)
         await self.client.process_commands(message)
+
+        if not Enabled:
+            return
 
         SquogMention = False
 
