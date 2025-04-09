@@ -3,7 +3,7 @@ from nextcord.ext import commands
 import openai
 import json
 
-Enabled = False
+Enabled = True
 
 SquogAILink = "https://api.webraft.in/v1"
 SquogAIToken = "wr-tmkosxfStCjKSKsUJZueAS"
@@ -14,10 +14,11 @@ SquogDataFile = open("./userinfo/userinfo.json", "r")
 SquogData = json.loads(SquogDataFile.read())
 SquogDataFile.close()
 
-SquogUserPreset = {"id":  999, "messages":  []}
+SquogUserPreset = {"id":  999, "messages":  [{"role": "system", "content": "You are a Squid Dog from game Changed. You are a white dog-looking creature made of latex, you have white squid tentacles with black paw beans, you have black eyes with white pupils, you have extra 2 arm paws. You must act like a curious creature and never say you are a PC program."}]}
 
 async def getResponse(SquogMessageList):
-    return SquogAI.chat.completions.create(messages=SquogMessageList, model="gpt-4o", temperature=0.6)
+    SquogResponse = SquogAI.chat.completions.create(messages=SquogMessageList, model="gpt-4o", temperature=0.9)
+    return SquogResponse.model_dump_json()
 
 async def find(list: list, param: str, value: any):
     found = None
@@ -28,7 +29,7 @@ async def find(list: list, param: str, value: any):
     return found
 
 async def flush():
-    SquogDataFile = open("./userdata/userdata.json", "w")
+    SquogDataFile = open("./userinfo/userinfo.json", "w")
     SquogDataFile.write(json.dumps(SquogData))
     SquogDataFile.flush()
     SquogDataFile.close()
@@ -66,7 +67,6 @@ class AI(commands.Cog):
         print(SquogResponse)
 
         SquogUser["messages"].append(SquogResponse["choices"][0]["message"])
-
         await message.reply(SquogResponse["choices"][0]["message"]["content"])
 
         await flush(SquogData)
