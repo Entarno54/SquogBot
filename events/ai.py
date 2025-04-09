@@ -18,7 +18,7 @@ SquogUserPreset = {"id":  999, "messages":  [{"role": "system", "content": "You 
 
 async def getResponse(SquogMessageList):
     SquogResponse = SquogAI.chat.completions.create(messages=SquogMessageList, model="gpt-4o", temperature=0.9)
-    return SquogResponse.model_dump_json()
+    return SquogResponse.json()
 
 async def find(list: list, param: str, value: any):
     found = None
