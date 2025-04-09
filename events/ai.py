@@ -64,8 +64,9 @@ class AI(commands.Cog):
         SquogUser["messages"].append({"role": "user", "content": message.content})
 
         SquogResponse = await getResponse(SquogUser["messages"])
+
         print(SquogResponse)
-        print(SquogResponse[0])
+
         SquogUser["messages"].append(SquogResponse["choices"][0]["message"])
         await message.reply(SquogResponse["choices"][0]["message"]["content"])
 
