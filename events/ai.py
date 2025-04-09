@@ -58,7 +58,6 @@ class AI(commands.Cog):
         if not SquogUser:
             SquogUser = SquogUserPreset.copy()
             SquogUser["id"] = message.author.id
-            SquogUser["messages"] = []
             SquogData.append(SquogUser)
 
         SquogUser["messages"].append({"role": "user", "content": message.content})
@@ -70,7 +69,7 @@ class AI(commands.Cog):
         SquogUser["messages"].append(SquogResponse["choices"][0]["message"])
         await message.reply(SquogResponse["choices"][0]["message"]["content"])
 
-        await flush(SquogData)
+        await flush()
 
 def setup(bot):
     bot.add_cog(AI(bot))
