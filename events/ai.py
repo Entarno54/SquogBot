@@ -53,6 +53,8 @@ class AI(commands.Cog):
         if not SquogMention:
             return
 
+        await message.channel.typing()
+
         SquogUser = await find(SquogData, "id", message.author.id)
 
         if not SquogUser:
