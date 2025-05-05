@@ -85,7 +85,6 @@ class Voice(commands.Cog):
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
 
             #Starting the music
-            print(SquogPlaying[ctx.guild.id])
             if ctx.guild.id in SquogPlaying and SquogPlaying[ctx.guild.id]:
                 while SquogPlaying[ctx.guild.id]:
                     SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
