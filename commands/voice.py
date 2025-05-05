@@ -71,7 +71,7 @@ class Voice(commands.Cog):
         SquogVoiceClient = ctx.guild.voice_client
 
         # Function I will pass to the thread
-        def Process():
+        async def Process():
             #Downloading the music
             SquogDownload.download(link)
             #Getting the filename again
@@ -89,7 +89,7 @@ class Voice(commands.Cog):
                 while SquogPlaying[ctx.guild.id]:
                     SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
                     while SquogVoiceClient.is_playing():
-                        asyncio.sleep(.2)
+                        await asyncio.sleep(.2)
             else:
                 SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
