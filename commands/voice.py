@@ -51,13 +51,15 @@ class Voice(commands.Cog):
             await ctx.reply("Can't leave as i'm not in any voice channel.")
 
     @commands.command(description="Plays music in the voice channel.", usage={"link"})
-    async def play(self, ctx: nextcord.Message, link):
+    async def play(self, ctx: nextcord.Message, link, loop: bool | None):
         if not ctx.guild.voice_client:
             return await ctx.reply("I'm not in a voice channel.")
         if ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm already playing music.")
         # Extracting info for the filename
-        SquogPlaying[ctx.guild.id] = True
+        if loop:
+            SquogPlaying[ctx.guild.id] = True
+
         SquogInfo = SquogDownload.extract_info(link, download=False)
 
         Embed = nextcord.Embed(title="Loading music", description=SquogDownload.prepare_filename(SquogInfo))
@@ -83,8 +85,11 @@ class Voice(commands.Cog):
 
             #Starting the music
 
-            while SquogPlaying[ctx.guild.id] == True:
-                SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+            if SquogPlaying[ctx.guild.id] == True:
+                while SquogPlaying[ctx.guild.id] == True:
+                    SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+            else:
+                SquogPlaying[ctx.guild.id] == True
 
 
         # I've to start this in a different thread because of how long some videos take to load...
