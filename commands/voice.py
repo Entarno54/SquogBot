@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import yt_dlp
 import os
 import threading
+import asyncio
 
 SquogFinalName: str = None
 SquogPlaying = {
@@ -69,7 +70,7 @@ class Voice(commands.Cog):
 
         SquogVoiceClient = ctx.guild.voice_client
 
-        # Function i will pass to the thread
+        # Function I will pass to the thread
         def Process():
             #Downloading the music
             SquogDownload.download(link)
@@ -88,8 +89,10 @@ class Voice(commands.Cog):
             if SquogPlaying[ctx.guild.id] == True:
                 while SquogPlaying[ctx.guild.id] == True:
                     SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+                    while SquogVoiceClient.is_playing():
+                        asyncio.sleep(.2)
             else:
-                SquogPlaying[ctx.guild.id] == True
+                SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
 
 
         # I've to start this in a different thread because of how long some videos take to load...
