@@ -85,9 +85,9 @@ class Voice(commands.Cog):
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
 
             #Starting the music
-
-            if SquogPlaying[ctx.guild.id] == True:
-                while SquogPlaying[ctx.guild.id] == True:
+            print(SquogPlaying[ctx.guild.id])
+            if ctx.guild.id in SquogPlaying and SquogPlaying[ctx.guild.id]:
+                while SquogPlaying[ctx.guild.id]:
                     SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
                     while SquogVoiceClient.is_playing():
                         asyncio.sleep(.2)
