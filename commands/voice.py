@@ -5,6 +5,9 @@ import os
 import threading
 
 SquogFinalName: str = None
+SquogPlaying = {
+
+}
 
 SquogVideo = {
     "verbose": True,
@@ -43,6 +46,7 @@ class Voice(commands.Cog):
         if ctx.guild.voice_client:
             await ctx.guild.voice_client.disconnect(force=True)
             await ctx.reply("Left.")
+            SquogPlaying[ctx.guild.id] = False
         else:
             await ctx.reply("Can't leave as i'm not in any voice channel.")
 
@@ -53,6 +57,7 @@ class Voice(commands.Cog):
         if ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm already playing music.")
         # Extracting info for the filename
+        SquogPlaying[ctx.guild.id] = True
         SquogInfo = SquogDownload.extract_info(link, download=False)
 
         Embed = nextcord.Embed(title="Loading music", description=SquogDownload.prepare_filename(SquogInfo))
@@ -77,7 +82,10 @@ class Voice(commands.Cog):
             SquogEvilFilename = f"{SquogFinalName[:SquogLength]}mp3"
 
             #Starting the music
-            SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+
+            while SquogPlaying[ctx.guild.id] == True:
+                SquogVoiceClient.play(nextcord.FFmpegPCMAudio(f"{SquogEvilFilename}"))
+
 
         # I've to start this in a different thread because of how long some videos take to load...
         threading.Thread(target=Process).start()
@@ -89,6 +97,7 @@ class Voice(commands.Cog):
         if not ctx.guild.voice_client.is_playing():
             return await ctx.reply("I'm not playing music.")
         ctx.guild.voice_client.stop()
+        SquogPlaying[ctx.guild.id] = False
 
 def setup(bot):
     bot.add_cog(Voice(bot))

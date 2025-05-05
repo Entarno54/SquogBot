@@ -1,8 +1,7 @@
-import os
-import random
-
 import nextcord
 from nextcord.ext import commands
+
+import random
 
 class Fun(commands.Cog):
     def __init__(self, bot):
