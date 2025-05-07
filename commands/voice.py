@@ -5,6 +5,8 @@ import os
 import threading
 import time
 
+from main import client
+
 SquogFinalName: str = None
 SquogPlaying = {
 
@@ -106,6 +108,13 @@ class Voice(commands.Cog):
             return await ctx.reply("I'm not playing music.")
         ctx.guild.voice_client.stop()
         SquogPlaying[ctx.guild.id] = False
+
+    @client.event
+    async def on_voice_state_update(self, member: nextcord.Member, before: nextcord.VoiceState, after: nextcord.VoiceState):
+        if before.channel and not after.channel:
+            print(f'{member} left a vc.')
+            if before.channel.members.__len__() == 0 and member.guild.voice_client and member.guild.voice_client.channel == before.channel:
+                    await before.channel.guild.voice_client.disconnect(force=True)
 
 def setup(bot):
     bot.add_cog(Voice(bot))
