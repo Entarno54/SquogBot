@@ -110,7 +110,8 @@ class Voice(commands.Cog):
         SquogPlaying[ctx.guild.id] = False
 
     @client.event
-    async def on_voice_state_update(self, member: nextcord.Member, before: nextcord.VoiceState, after: nextcord.VoiceState):
+    async def on_voice_state_update(self, member: nextcord.Member, before: nextcord.VoiceState, after: nextcord.VoiceState | None):
+        print(self, member, before, after)
         if before.channel and not after.channel:
             print(f'{member} left a vc.')
             if before.channel.members.__len__() == 0 and member.guild.voice_client and member.guild.voice_client.channel == before.channel:
