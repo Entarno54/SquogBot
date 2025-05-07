@@ -114,7 +114,7 @@ class Voice(commands.Cog):
         print(member, before, after)
         if before.channel and not after.channel:
             print(f'{member} left a vc.')
-            if before.channel.members.__len__() == 0 and member.guild.voice_client and member.guild.voice_client.channel == before.channel:
+            if before.channel.members.__len__() == 1 and member.guild.voice_client and member.guild.voice_client.channel == before.channel:
                     await before.channel.guild.voice_client.disconnect(force=True)
 
 def setup(bot):
